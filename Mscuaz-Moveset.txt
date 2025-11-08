@@ -1,0 +1,1231 @@
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local backpack = player:WaitForChild("Backpack")
+
+for _, tool in ipairs(character:GetChildren()) do
+    if tool:IsA("Tool") then
+        tool:Destroy()
+    end
+end
+
+for _, tool in ipairs(backpack:GetChildren()) do
+    if tool:IsA("Tool") then
+        tool:Destroy()
+    end
+end
+
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local events = {
+    replicatedStorage.Ellen.Yuji.RemoteEvent,
+    replicatedStorage.Ellen.Yuji.RemoteEvent2,
+    replicatedStorage.Ellen.Yuji.RemoteEvent3,
+    replicatedStorage.Ellen.Yuji.RemoteEvent4,
+}
+
+local attackDelay = 0.35
+local cooldownTime = 0.75
+local resetTime = 2
+local currentIndex = 1
+local isCooldown = false
+local lastAttackTime = os.clock()
+
+local toolM1 = Instance.new("Tool")
+toolM1.Name = "M1s"
+toolM1.RequiresHandle = false
+toolM1.Parent = backpack
+
+toolM1.Activated:Connect(function()
+    if isCooldown then return end
+    isCooldown = true
+
+    events[currentIndex]:FireServer()
+    lastAttackTime = os.clock()
+
+    if currentIndex == #events then
+        task.wait(cooldownTime)
+        currentIndex = 1
+    else
+        currentIndex += 1
+        task.wait(attackDelay)
+    end
+
+    isCooldown = false
+end)
+
+local function createCooldownTool(name, activateFunction, cooldown)
+    local tool = Instance.new("Tool")
+    tool.Name = name
+    tool.RequiresHandle = false
+    tool.Parent = backpack
+    local cooldownValue = Instance.new("NumberValue", tool)
+    cooldownValue.Value = 0
+
+    local function startCooldown()
+        cooldownValue.Value = cooldown
+        while cooldownValue.Value > 0 do
+            tool.Name = name .. " (" .. string.format("%.1f", cooldownValue.Value) .. "s)"
+            task.wait(0.1)
+            cooldownValue.Value -= 0.1
+        end
+        tool.Name = name
+    end
+
+    tool.Activated:Connect(function()
+        if cooldownValue.Value > 0 then return end
+        activateFunction()
+        startCooldown()
+    end)
+end
+
+createCooldownTool("blood bullet", function()
+    replicatedStorage.Remotes.ballz2:FireServer()
+    wait()
+    replicatedStorage.Remotes.beam:FireServer()
+end, 2)
+
+createCooldownTool("strong kick", function()
+    replicatedStorage.Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
+    replicatedStorage.Remotes.sniper:FireServer()
+end, 10)
+
+createCooldownTool("hot and cold", function()
+    replicatedStorage.sukuna.remotes:FindFirstChild("fire arrow"):FireServer()
+    wait(0.5)
+    replicatedStorage.CompassNeedle.RemoteEvent:FireServer()
+end, 8.5)
+
+createCooldownTool("powerful shot", function()
+    replicatedStorage.Remotes.ballz:FireServer()
+    wait()
+    replicatedStorage.Remotes.sniper:FireServer()
+end, 2.2)
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local backpack = player:WaitForChild("Backpack")
+local replicatedStorage = game:GetService("ReplicatedStorage")
+
+local function playSound(assetId)
+    local sound = Instance.new("Sound")
+    sound.SoundId = assetId
+    sound.Parent = character:FindFirstChild("HumanoidRootPart") or character
+    sound:Play()
+    sound.Ended:Connect(function()
+        sound:Destroy()
+    end)
+end
+
+local function playAnimation(assetId)
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        local animation = Instance.new("Animation")
+        animation.AnimationId = assetId
+        local track = humanoid:LoadAnimation(animation)
+        track:Play()
+    end
+end
+
+local function destroyAllTools()
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+
+    local equippedTool = character:FindFirstChildOfClass("Tool")
+    if equippedTool then
+        equippedTool:Destroy()
+    end
+end
+
+local function activateScript()
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid and humanoid.Health / humanoid.MaxHealth > 0.5 then
+        warn("Cannot activate tool. HP is above 50%.")
+        return
+    end
+
+    local healingRemote = replicatedStorage.Remotes:FindFirstChild("Healing")
+    if healingRemote and healingRemote:IsA("RemoteEvent") then
+        healingRemote:FireServer(" ")
+    end
+    playSound("rbxassetid://577577319")
+    playAnimation("rbxassetid://125383777732172")
+
+    task.delay(0.1, destroyAllTools)
+wait (0.5)
+local function activateScript()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+
+wait ()
+
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "Final Strike"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
+local function activateScript()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+
+wait ()
+
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "Reset NOW!!⚡️"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
+local function activateScript()
+
+wait ()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "spin hit"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
+local function activateScript()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+
+
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "hollow gatling"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
+local player = game.Players.LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+
+local function createCooldownGui()
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Parent = player.PlayerGui
+    
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0, 200, 0, 30)
+    frame.Position = UDim2.new(0.5, -100, 0, 10)
+    frame.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+    frame.Parent = screenGui
+    
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textLabel.Font = Enum.Font.SourceSans
+    textLabel.TextSize = 20
+    textLabel.Text = "60s"
+    textLabel.Parent = frame
+
+    return screenGui, textLabel
+end
+
+local function deleteTools()
+    local character = player.Character or player.CharacterAdded:Wait()
+    
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+    
+    for _, tool in ipairs(character:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+end
+
+local function activateScript()
+    local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local backpack = player:WaitForChild("Backpack")
+
+for _, tool in ipairs(character:GetChildren()) do
+    if tool:IsA("Tool") then
+        tool:Destroy()
+    end
+end
+
+for _, tool in ipairs(backpack:GetChildren()) do
+    if tool:IsA("Tool") then
+        tool:Destroy()
+    end
+end
+
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local events = {
+    replicatedStorage.Ellen.Yuji.RemoteEvent,
+    replicatedStorage.Ellen.Yuji.RemoteEvent2,
+    replicatedStorage.Ellen.Yuji.RemoteEvent3,
+    replicatedStorage.Ellen.Yuji.RemoteEvent4,
+}
+
+local attackDelay = 0.35
+local cooldownTime = 0.75
+local resetTime = 2
+local currentIndex = 1
+local isCooldown = false
+local lastAttackTime = os.clock()
+
+local toolM1 = Instance.new("Tool")
+toolM1.Name = "M1s"
+toolM1.RequiresHandle = false
+toolM1.Parent = backpack
+
+toolM1.Activated:Connect(function()
+    if isCooldown then return end
+    isCooldown = true
+
+    events[currentIndex]:FireServer()
+    lastAttackTime = os.clock()
+
+    if currentIndex == #events then
+        task.wait(cooldownTime)
+        currentIndex = 1
+    else
+        currentIndex += 1
+        task.wait(attackDelay)
+    end
+
+    isCooldown = false
+end)
+
+local function createCooldownTool(name, activateFunction, cooldown)
+    local tool = Instance.new("Tool")
+    tool.Name = name
+    tool.RequiresHandle = false
+    tool.Parent = backpack
+    local cooldownValue = Instance.new("NumberValue", tool)
+    cooldownValue.Value = 0
+
+    local function startCooldown()
+        cooldownValue.Value = cooldown
+        while cooldownValue.Value > 0 do
+            tool.Name = name .. " (" .. string.format("%.1f", cooldownValue.Value) .. "s)"
+            task.wait(0.1)
+            cooldownValue.Value -= 0.1
+        end
+        tool.Name = name
+    end
+
+    tool.Activated:Connect(function()
+        if cooldownValue.Value > 0 then return end
+        activateFunction()
+        startCooldown()
+    end)
+end
+
+createCooldownTool("blood bullet", function()
+    replicatedStorage.Remotes.ballz2:FireServer()
+    wait()
+    replicatedStorage.Remotes.beam:FireServer()
+end, 2)
+
+createCooldownTool("strong kick", function()
+    replicatedStorage.Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
+    replicatedStorage.Remotes.sniper:FireServer()
+end, 10)
+
+createCooldownTool("hot and cold", function()
+    replicatedStorage.sukuna.remotes:FindFirstChild("fire arrow"):FireServer()
+    wait(0.5)
+    replicatedStorage.CompassNeedle.RemoteEvent:FireServer()
+end, 8.5)
+
+createCooldownTool("powerful shot", function()
+    replicatedStorage.Remotes.ballz:FireServer()
+    wait()
+    replicatedStorage.Remotes.sniper:FireServer()
+end, 2.2)
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local backpack = player:WaitForChild("Backpack")
+local replicatedStorage = game:GetService("ReplicatedStorage")
+
+local function playSound(assetId)
+    local sound = Instance.new("Sound")
+    sound.SoundId = assetId
+    sound.Parent = character:FindFirstChild("HumanoidRootPart") or character
+    sound:Play()
+    sound.Ended:Connect(function()
+        sound:Destroy()
+    end)
+end
+
+local function playAnimation(assetId)
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        local animation = Instance.new("Animation")
+        animation.AnimationId = assetId
+        local track = humanoid:LoadAnimation(animation)
+        track:Play()
+    end
+end
+
+local function destroyAllTools()
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+
+    local equippedTool = character:FindFirstChildOfClass("Tool")
+    if equippedTool then
+        equippedTool:Destroy()
+    end
+end
+
+local function activateScript()
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid and humanoid.Health / humanoid.MaxHealth > 0.5 then
+        warn("Cannot activate tool. HP is above 50%.")
+        return
+    end
+
+    local healingRemote = replicatedStorage.Remotes:FindFirstChild("Healing")
+    if healingRemote and healingRemote:IsA("RemoteEvent") then
+        healingRemote:FireServer(" ")
+    end
+    playSound("rbxassetid://577577319")
+    playAnimation("rbxassetid://125383777732172")
+
+    task.delay(0.1, destroyAllTools)
+wait (0.5)
+local function activateScript()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+
+wait ()
+
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "Final Strike"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
+local function activateScript()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+
+wait ()
+
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "Reset NOW!!⚡️"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
+local function activateScript()
+
+wait ()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "spin hit"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
+local function activateScript()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+
+
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "hollow gatling"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
+local player = game.Players.LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+
+local function createCooldownGui()
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Parent = player.PlayerGui
+    
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0, 200, 0, 30)
+    frame.Position = UDim2.new(0.5, -100, 0, 10)
+    frame.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+    frame.Parent = screenGui
+    
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textLabel.Font = Enum.Font.SourceSans
+    textLabel.TextSize = 20
+    textLabel.Text = "60s"
+    textLabel.Parent = frame
+
+    return screenGui, textLabel
+end
+
+local function deleteTools()
+    local character = player.Character or player.CharacterAdded:Wait()
+    
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+    
+    for _, tool in ipairs(character:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+end
+
+local function activateScript()
+    local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local backpack = player:WaitForChild("Backpack")
+
+for _, tool in ipairs(character:GetChildren()) do
+    if tool:IsA("Tool") then
+        tool:Destroy()
+    end
+end
+
+for _, tool in ipairs(backpack:GetChildren()) do
+    if tool:IsA("Tool") then
+        tool:Destroy()
+    end
+end
+
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local events = {
+    replicatedStorage.Ellen.Yuji.RemoteEvent,
+    replicatedStorage.Ellen.Yuji.RemoteEvent2,
+    replicatedStorage.Ellen.Yuji.RemoteEvent3,
+    replicatedStorage.Ellen.Yuji.RemoteEvent4,
+}
+
+local attackDelay = 0.35
+local cooldownTime = 0.75
+local resetTime = 2
+local currentIndex = 1
+local isCooldown = false
+local lastAttackTime = os.clock()
+
+local toolM1 = Instance.new("Tool")
+toolM1.Name = "M1s"
+toolM1.RequiresHandle = false
+toolM1.Parent = backpack
+
+toolM1.Activated:Connect(function()
+    if isCooldown then return end
+    isCooldown = true
+
+    events[currentIndex]:FireServer()
+    lastAttackTime = os.clock()
+
+    if currentIndex == #events then
+        task.wait(cooldownTime)
+        currentIndex = 1
+    else
+        currentIndex += 1
+        task.wait(attackDelay)
+    end
+
+    isCooldown = false
+end)
+
+local function createCooldownTool(name, activateFunction, cooldown)
+    local tool = Instance.new("Tool")
+    tool.Name = name
+    tool.RequiresHandle = false
+    tool.Parent = backpack
+    local cooldownValue = Instance.new("NumberValue", tool)
+    cooldownValue.Value = 0
+
+    local function startCooldown()
+        cooldownValue.Value = cooldown
+        while cooldownValue.Value > 0 do
+            tool.Name = name .. " (" .. string.format("%.1f", cooldownValue.Value) .. "s)"
+            task.wait(0.1)
+            cooldownValue.Value -= 0.1
+        end
+        tool.Name = name
+    end
+
+    tool.Activated:Connect(function()
+        if cooldownValue.Value > 0 then return end
+        activateFunction()
+        startCooldown()
+    end)
+end
+
+createCooldownTool("blood bullet", function()
+    replicatedStorage.Remotes.ballz2:FireServer()
+    wait()
+    replicatedStorage.Remotes.beam:FireServer()
+end, 2)
+
+createCooldownTool("strong kick", function()
+    replicatedStorage.Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
+    replicatedStorage.Remotes.sniper:FireServer()
+end, 10)
+
+createCooldownTool("hot and cold", function()
+    replicatedStorage.sukuna.remotes:FindFirstChild("fire arrow"):FireServer()
+    wait(0.5)
+    replicatedStorage.CompassNeedle.RemoteEvent:FireServer()
+end, 8.5)
+
+createCooldownTool("powerful shot", function()
+    replicatedStorage.Remotes.ballz:FireServer()
+    wait()
+    replicatedStorage.Remotes.sniper:FireServer()
+end, 2.2)
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local backpack = player:WaitForChild("Backpack")
+local replicatedStorage = game:GetService("ReplicatedStorage")
+
+local function playSound(assetId)
+    local sound = Instance.new("Sound")
+    sound.SoundId = assetId
+    sound.Parent = character:FindFirstChild("HumanoidRootPart") or character
+    sound:Play()
+    sound.Ended:Connect(function()
+        sound:Destroy()
+    end)
+end
+
+local function playAnimation(assetId)
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        local animation = Instance.new("Animation")
+        animation.AnimationId = assetId
+        local track = humanoid:LoadAnimation(animation)
+        track:Play()
+    end
+end
+
+local function destroyAllTools()
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+
+    local equippedTool = character:FindFirstChildOfClass("Tool")
+    if equippedTool then
+        equippedTool:Destroy()
+    end
+end
+
+local function activateScript()
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid and humanoid.Health / humanoid.MaxHealth > 0.5 then
+        warn("Cannot activate tool. HP is above 50%.")
+        return
+    end
+
+    local healingRemote = replicatedStorage.Remotes:FindFirstChild("Healing")
+    if healingRemote and healingRemote:IsA("RemoteEvent") then
+        healingRemote:FireServer(" ")
+    end
+    playSound("rbxassetid://577577319")
+    playAnimation("rbxassetid://125383777732172")
+
+    task.delay(0.1, destroyAllTools)
+wait (0.5)
+local function activateScript()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+
+wait ()
+
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "Final Strike"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
+local function activateScript()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+game:GetService("ReplicatedStorage").randommoveset.remotes.kaminara:FireServer()
+
+wait ()
+
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "Reset NOW!!⚡️"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
+local function activateScript()
+
+wait ()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+game:GetService("ReplicatedStorage").Grace.Obstruction:FireServer()
+game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "spin hit"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
+local function activateScript()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+wait (0.1)
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+game:GetService("ReplicatedStorage").Remotes.Fire2:FireServer()
+
+
+
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "hollow gatling"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
+local player = game.Players.LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+
+local function createCooldownGui()
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Parent = player.PlayerGui
+    
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0, 200, 0, 30)
+    frame.Position = UDim2.new(0.5, -100, 0, 10)
+    frame.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+    frame.Parent = screenGui
+    
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textLabel.Font = Enum.Font.SourceSans
+    textLabel.TextSize = 20
+    textLabel.Text = "60s"
+    textLabel.Parent = frame
+
+    return screenGui, textLabel
+end
+
+local function deleteTools()
+    local character = player.Character or player.CharacterAdded:Wait()
+    
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+    
+    for _, tool in ipairs(character:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+end
+
+local function activateScript()
+    
+end
+
+local function deleteGuiAfterTimeLimit(textLabel, screenGui)
+    local countdown = 60
+    textLabel.Text = string.format("%ds", countdown)
+    
+    while countdown > 0 do
+        wait(0.1)
+        countdown = countdown - 0.1
+        textLabel.Text = string.format("%.1fs", countdown)
+    end
+
+    screenGui:Destroy()
+    deleteTools()
+
+    task.delay(0.5, activateScript)
+end
+
+local screenGui, textLabel = createCooldownGui()
+deleteGuiAfterTimeLimit(textLabel, screenGui)
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "Silliest"
+tool.RequiresHandle = false
+tool.Parent = backpack
+
+tool.Activated:Connect(activateScript)
+end
+
+local function deleteGuiAfterTimeLimit(textLabel, screenGui)
+    local countdown = 60
+    textLabel.Text = string.format("%ds", countdown)
+    
+    while countdown > 0 do
+        wait(0.1)
+        countdown = countdown - 0.1
+        textLabel.Text = string.format("%.1fs", countdown)
+    end
+
+    screenGui:Destroy()
+    deleteTools()
+
+    task.delay(0.5, activateScript)
+end
+
+local screenGui, textLabel = createCooldownGui()
+deleteGuiAfterTimeLimit(textLabel, screenGui)
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "Silliest"
+tool.RequiresHandle = false
+tool.Parent = backpack
+
+tool.Activated:Connect(activateScript)
+end
+
+local function deleteGuiAfterTimeLimit(textLabel, screenGui)
+    local countdown = 60
+    textLabel.Text = string.format("%ds", countdown)
+    
+    while countdown > 0 do
+        wait(0.1)
+        countdown = countdown - 0.1
+        textLabel.Text = string.format("%.1fs", countdown)
+    end
+
+    screenGui:Destroy()
+    deleteTools()
+
+    task.delay(0.5, activateScript)
+end
+
+local screenGui, textLabel = createCooldownGui()
+deleteGuiAfterTimeLimit(textLabel, screenGui)
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "Silliest"
+tool.RequiresHandle = false
+tool.Parent = backpack
+
+tool.Activated:Connect(activateScript)
