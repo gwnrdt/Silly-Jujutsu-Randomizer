@@ -227,7 +227,7 @@ local function createCooldownTool(name, activateFunction, cooldown)
 end
 
 -- Tool definitions with cooldowns
-createCooldownTool("glimpse of power", function()
+createCooldownTool("Glimpse Of Power", function()
     game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
     wait(0.5)
     game:GetService("ReplicatedStorage").Kiryu.Remotes.StylishSweeps:FireServer()
@@ -235,7 +235,7 @@ createCooldownTool("glimpse of power", function()
     game:GetService("ReplicatedStorage").Ellen.Tail:FireServer()
 end, 3)
 
-createCooldownTool("wolf fang rush", function()
+createCooldownTool("Wolf Fang Rush", function()
     game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
     wait(0.6)
     game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent4:FireServer()
@@ -243,14 +243,14 @@ createCooldownTool("wolf fang rush", function()
     wait(1)
 end, 4)
 
-createCooldownTool("fang dance", function()
+createCooldownTool("Fang Dance", function()
     game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
     wait(0.5)
     game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent:FireServer()
     wait()
 end, 2.5)
 
-createCooldownTool("fang rampage", function()
+createCooldownTool("Fang Rampage", function()
     game:GetService("ReplicatedStorage").Yuji.Remotes.Event2:FireServer()
     wait(0.9)
     game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent4:FireServer()
@@ -328,7 +328,7 @@ local function createCooldownTool(name, activateFunction, cooldown)
 end
 
 -- Define tools with cooldowns and activation functions
-createCooldownTool("one inch killer punch", function()
+createCooldownTool("One Inch Killer Punch", function()
     for i = 1, 6 do
         game:GetService("ReplicatedStorage").Ellen.LMBRemotes.RemoteEvent:FireServer()
         task.wait(0.1)
@@ -338,7 +338,7 @@ createCooldownTool("one inch killer punch", function()
     game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
 end, 9)
 
-createCooldownTool("fang dash", function()
+createCooldownTool("Fang Dash", function()
     local rootPart = character:WaitForChild("HumanoidRootPart")
     local lookVector = rootPart.CFrame.LookVector
 
@@ -349,14 +349,14 @@ createCooldownTool("fang dash", function()
     rootPart.CFrame = rootPart.CFrame + (lookVector * 25)
 end, 6)
 
-createCooldownTool("this is true kung fu", function()
+createCooldownTool("This Is True Kung Fu", function()
     game:GetService("ReplicatedStorage").sukuna.remotes.rush:FireServer()
     task.wait(0.5)
     game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
     game:GetService("ReplicatedStorage").sukuna.remotes.dismantle:FireServer()
 end, 12)
 
-createCooldownTool("too easy", function()
+createCooldownTool("Too Easy", function()
     game:GetService("ReplicatedStorage").Ellen.equipsigma:FireServer()
     game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent2:FireServer()
     game:GetService("ReplicatedStorage").Yuji.Remotes.Event2:FireServer()
@@ -434,7 +434,7 @@ local function createCooldownTool(name, activateFunction, cooldown)
 end
 
 -- Tool definitions with cooldowns
-createCooldownTool("glimpse of power", function()
+createCooldownTool("Glimpse Of Power", function()
     game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
     wait(0.5)
     game:GetService("ReplicatedStorage").Kiryu.Remotes.StylishSweeps:FireServer()
@@ -442,7 +442,7 @@ createCooldownTool("glimpse of power", function()
     game:GetService("ReplicatedStorage").Ellen.Tail:FireServer()
 end, 3)
 
-createCooldownTool("wolf fang rush", function()
+createCooldownTool("Wolf Fang Rush", function()
     game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
     wait(0.6)
     game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent4:FireServer()
@@ -450,14 +450,14 @@ createCooldownTool("wolf fang rush", function()
     wait(1)
 end, 4)
 
-createCooldownTool("fang dance", function()
+createCooldownTool("Fang Dance", function()
     game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
     wait(0.5)
     game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent:FireServer()
     wait()
 end, 2.5)
 
-createCooldownTool("fang rampage", function()
+createCooldownTool("Fang Rampage", function()
     game:GetService("ReplicatedStorage").Yuji.Remotes.Event2:FireServer()
     wait(0.9)
     game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent4:FireServer()
@@ -535,7 +535,7 @@ local function createCooldownTool(name, activateFunction, cooldown)
 end
 
 -- Define tools with cooldowns and activation functions
-createCooldownTool("one inch killer punch", function()
+createCooldownTool("One Inch Killer Punch", function()
     for i = 1, 6 do
         game:GetService("ReplicatedStorage").Ellen.LMBRemotes.RemoteEvent:FireServer()
         task.wait(0.1)
@@ -545,7 +545,7 @@ createCooldownTool("one inch killer punch", function()
     game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
 end, 9)
 
-createCooldownTool("fang dash", function()
+createCooldownTool("Fang Dash", function()
     local rootPart = character:WaitForChild("HumanoidRootPart")
     local lookVector = rootPart.CFrame.LookVector
 
@@ -556,14 +556,14 @@ createCooldownTool("fang dash", function()
     rootPart.CFrame = rootPart.CFrame + (lookVector * 25)
 end, 6)
 
-createCooldownTool("this is true kung fu", function()
+createCooldownTool("This Is True Kung Fu", function()
     game:GetService("ReplicatedStorage").sukuna.remotes.rush:FireServer()
     task.wait(0.5)
     game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
     game:GetService("ReplicatedStorage").sukuna.remotes.dismantle:FireServer()
 end, 12)
 
-createCooldownTool("too easy", function()
+createCooldownTool("Too Easy", function()
     game:GetService("ReplicatedStorage").Ellen.equipsigma:FireServer()
     game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent2:FireServer()
     game:GetService("ReplicatedStorage").Yuji.Remotes.Event2:FireServer()
