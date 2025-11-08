@@ -1,0 +1,72 @@
+local player = game.Players.LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+local character = player.Character or player.CharacterAdded:Wait()
+
+local function deleteAllTools()
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+
+    for _, tool in ipairs(character:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+end
+
+deleteAllTools()
+
+local function createCooldownTool(name, activateFunction, cooldown)
+    local tool = Instance.new("Tool")
+    tool.Name = name
+    tool.RequiresHandle = false
+    tool.Parent = backpack
+    local isCooldown = false
+
+    tool.Activated:Connect(function()
+        if isCooldown then return end
+        isCooldown = true
+        activateFunction()
+
+        task.spawn(function()
+            local remainingTime = cooldown
+            while remainingTime > 0 do
+                tool.Name = name .. " (" .. string.format("%.1f", remainingTime) .. "s)"
+                task.wait(0.1)
+                remainingTime -= 0.1
+            end
+            tool.Name = name
+            isCooldown = false
+        end)
+    end)
+end
+
+createCooldownTool("Skull Cracker", function()
+    game:GetService("ReplicatedStorage").sukuna.remotes.cleave:FireServer()
+    game:GetService("ReplicatedStorage").Remotes.sniper:FireServer()
+    game:GetService("ReplicatedStorage").Remotes.sniper:FireServer()
+    game:GetService("ReplicatedStorage").sukuna.remotes.cleave:FireServer()
+end, 5)
+
+createCooldownTool("Hellish Slash", function()
+    game:GetService("ReplicatedStorage").sukuna.remotes.rush:FireServer()
+    game:GetService("ReplicatedStorage").Kiryu.Remotes.Dropkick:FireServer()
+    game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
+    game:GetService("ReplicatedStorage").Ellen.equip1:FireServer()
+    task.wait(5)
+    game:GetService("ReplicatedStorage").Ellen.equip2:FireServer()
+end, 7)
+
+createCooldownTool("Brutal Slam", function()
+    game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
+    game:GetService("ReplicatedStorage").sukuna.remotes.suplex:FireServer()
+    game:GetService("ReplicatedStorage").sukuna.remotes.cleave:FireServer()
+end, 4)
+
+createCooldownTool("Crushing Grip", function()
+    game:GetService("ReplicatedStorage").Yuji.Remotes.Event2:FireServer()
+    game:GetService("ReplicatedStorage").Kiryu.Remotes.Dropkick:FireServer()
+    game:GetService("ReplicatedStorage").KJ.Remotes:FindFirstChild("Collaretal Ruin"):FireServer()
+end, 6)
