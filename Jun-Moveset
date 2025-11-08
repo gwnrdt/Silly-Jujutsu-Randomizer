@@ -1,0 +1,615 @@
+local player = game.Players.LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+local character = player.Character or player.CharacterAdded:Wait()
+
+local function deleteAllTools()
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+
+    for _, tool in ipairs(character:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+end
+
+deleteAllTools()
+
+local function activateScript()
+function info(txt)
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Credits = Instance.new("TextLabel")
+pcall(function() game.CoreGui.Revit:Destroy() end)
+task.wait(.1)
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Name = 'Revit'
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+MainFrame.BorderColor3 = Color3.fromRGB(255, 0, 0)
+
+
+spawn(function()
+Credits.Parent = ScreenGui
+Credits.Font=Enum.Font.Arcade
+Credits.TextColor3=Color3.new(1,1,1)
+Credits.Position = UDim2.new(0,0,0,0)
+Credits.TextSize = 35
+Credits.Size = UDim2.new(1,0,.1,0)
+Credits.Text = ''
+Credits.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Credits.BorderColor3 = Color3.fromRGB(255, 0, 0)
+end)
+function tw(var,s)
+local a = ""
+local s_l = #s
+for i = 1, s_l do
+local c = string.sub(s, i, i)
+a = a .. c
+var.Text = a
+if c == "." then
+wait(.6)
+elseif c == ";" then
+wait(.3)
+elseif c == "," then
+wait(.3)
+elseif c == "!" then
+wait(.3)
+end
+wait(.03)
+end end
+tw(Credits,txt)
+task.wait(2)
+ScreenGui:Destroy()
+end
+
+spawn(function()
+info('Made By Mscuaz')
+
+end)
+wait ()
+local player = game.Players.LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Create the red bar outline
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0.25, 0, 0, 20)
+frame.Position = UDim2.new(0.375, 0, 0.5, 150)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black outline
+frame.BorderColor3 = Color3.fromRGB(0, 0, 0) -- Black outline
+frame.Parent = screenGui
+
+-- Bar fill (red overlay)
+local barFill = Instance.new("Frame")
+barFill.Size = UDim2.new(0, 0, 1, 0) -- Starts with no red fill
+barFill.Position = UDim2.new(0, 0, 0, 0)
+barFill.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Red fill
+barFill.BorderSizePixel = 0
+barFill.Parent = frame
+
+-- Text on top of the bar
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(1, 0, 1, 0)
+textLabel.Position = UDim2.new(0, 0, 0, 0)
+textLabel.Text = "Meter"
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
+textLabel.Font = Enum.Font.Arcade
+textLabel.TextSize = 14
+textLabel.BackgroundTransparency = 1
+textLabel.ZIndex = 2
+textLabel.Parent = frame
+
+-- Tool whitelist
+local toolWhitelist = {
+    "glimpse of power",
+    "wolf fang rush",
+    "fang dance",
+    "fang rampage"
+}
+
+local fillPercentage = 0
+local ultimateReady = false
+local isUltimateActive = false
+
+-- Function to handle tool usage
+local function onToolActivated(toolName)
+    if table.find(toolWhitelist, toolName) then
+        fillPercentage = math.min(fillPercentage + 2.5, 100) -- Increment by 5% (cap at 100%)
+        local goal = UDim2.new(fillPercentage / 100, 0, 1, 0)
+        barFill:TweenSize(goal, Enum.EasingDirection.Out, Enum.EasingStyle.Linear, 0.2, true)
+
+        if fillPercentage >= 100 and not ultimateReady then
+            ultimateReady = true
+            print("Bar fully filled! Use Activate Ultimate tool or press 'G' to activate.")
+        end
+    end
+end
+
+-- Detect tool usage
+for _, tool in ipairs(backpack:GetChildren()) do
+    if tool:IsA("Tool") and table.find(toolWhitelist, tool.Name) then
+        tool.Activated:Connect(function()
+            onToolActivated(tool.Name)
+        end)
+    end
+end
+
+backpack.ChildAdded:Connect(function(tool)
+    if tool:IsA("Tool") and table.find(toolWhitelist, tool.Name) then
+        tool.Activated:Connect(function()
+            onToolActivated(tool.Name)
+        end)
+    end
+end)
+
+-- Function to slowly drain the bar
+local function drainBar()
+    ultimateReady = false
+    isUltimateActive = true
+    local duration = 60
+    local step = 1 / duration -- Percentage to drain per second
+
+    for i = 1, duration do
+        if not isUltimateActive then
+            print("Countdown canceled due to death!")
+            break
+        end
+
+        fillPercentage = fillPercentage - (step * 100)
+        if fillPercentage < 0 then
+            fillPercentage = 0
+        end
+        local goal = UDim2.new(fillPercentage / 100, 0, 1, 0)
+        barFill.Size = goal
+        task.wait(1) -- Wait 1 second per step
+    end
+
+    if isUltimateActive then
+        local player = game.Players.LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+local character = player.Character or player.CharacterAdded:Wait()
+
+local function deleteAllTools()
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+
+    for _, tool in ipairs(character:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+end
+
+deleteAllTools()
+
+local function createCooldownTool(name, activateFunction, cooldown)
+    local tool = Instance.new("Tool")
+    tool.Name = name
+    tool.RequiresHandle = false
+    tool.Parent = backpack
+    local isCooldown = false
+    local cooldownValue = Instance.new("NumberValue", tool)
+    cooldownValue.Name = "Cooldown"
+    cooldownValue.Value = 0
+
+    local function startCooldown()
+        isCooldown = true
+        cooldownValue.Value = cooldown
+        tool.Enabled = false -- Disable the tool during cooldown
+        while cooldownValue.Value > 0 do
+            tool.Name = name .. " (" .. string.format("%.1f", cooldownValue.Value) .. "s)"
+            task.wait(0.1)
+            cooldownValue.Value -= 0.1
+        end
+        tool.Name = name
+        tool.Enabled = true -- Re-enable the tool after cooldown
+        isCooldown = false
+    end
+
+    tool.Activated:Connect(function()
+        if isCooldown then return end
+        tool.Enabled = false -- Disable immediately to prevent spamming
+        activateFunction()
+        startCooldown()
+    end)
+end
+
+-- Tool definitions with cooldowns
+createCooldownTool("glimpse of power", function()
+    game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
+    wait(0.5)
+    game:GetService("ReplicatedStorage").Kiryu.Remotes.StylishSweeps:FireServer()
+    wait(0.5)
+    game:GetService("ReplicatedStorage").Ellen.Tail:FireServer()
+end, 3)
+
+createCooldownTool("wolf fang rush", function()
+    game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
+    wait(0.6)
+    game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent4:FireServer()
+    game:GetService("ReplicatedStorage").sukuna.remotes.rush:FireServer()
+    wait(1)
+end, 4)
+
+createCooldownTool("fang dance", function()
+    game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
+    wait(0.5)
+    game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent:FireServer()
+    wait()
+end, 2.5)
+
+createCooldownTool("fang rampage", function()
+    game:GetService("ReplicatedStorage").Yuji.Remotes.Event2:FireServer()
+    wait(0.9)
+    game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent4:FireServer()
+    wait()
+end, 3.5)
+
+-- Create the "Activate Ultimate" tool
+local ultimateReady = true
+
+local function drainBar()
+    for i = 100, 0, -10 do
+        print("Draining bar: " .. i .. "%")
+        task.wait(0.5)
+    end
+    ultimateReady = false -- Mark the ultimate as not ready
+end
+
+local activateUltimateTool = Instance.new("Tool")
+activateUltimateTool.Name = "Activate Ultimate"
+activateUltimateTool.RequiresHandle = false
+activateUltimateTool.Parent = backpack
+
+activateUltimateTool.Activated:Connect(function()
+    if ultimateReady then
+        local player = game.Players.LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+local character = player.Character or player.CharacterAdded:Wait()
+
+local function deleteAllTools()
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+
+    for _, tool in ipairs(character:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+end
+
+deleteAllTools()
+
+local function createCooldownTool(name, activateFunction, cooldown)
+    local tool = Instance.new("Tool")
+    tool.Name = name
+    tool.RequiresHandle = false
+    tool.Parent = backpack
+    local isCooldown = false
+    local cooldownValue = Instance.new("NumberValue", tool)
+    cooldownValue.Name = "Cooldown"
+    cooldownValue.Value = 0
+
+    local function startCooldown()
+        isCooldown = true
+        tool.Enabled = false -- Disable the tool during cooldown
+        cooldownValue.Value = cooldown
+        while cooldownValue.Value > 0 do
+            tool.Name = name .. " (" .. string.format("%.1f", cooldownValue.Value) .. "s)"
+            task.wait(0.1)
+            cooldownValue.Value -= 0.1
+        end
+        tool.Name = name
+        tool.Enabled = true -- Re-enable the tool after cooldown
+        isCooldown = false
+    end
+
+    tool.Activated:Connect(function()
+        if isCooldown then return end -- Prevent activation during cooldown
+        isCooldown = true
+        activateFunction()
+        startCooldown()
+    end)
+end
+
+-- Define tools with cooldowns and activation functions
+createCooldownTool("one inch killer punch", function()
+    for i = 1, 6 do
+        game:GetService("ReplicatedStorage").Ellen.LMBRemotes.RemoteEvent:FireServer()
+        task.wait(0.1)
+        game:GetService("ReplicatedStorage").Ellen.LMBRemotes.RemoteEvent2:FireServer()
+        task.wait(0.1)
+    end
+    game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+end, 9)
+
+createCooldownTool("fang dash", function()
+    local rootPart = character:WaitForChild("HumanoidRootPart")
+    local lookVector = rootPart.CFrame.LookVector
+
+    for i = 1, 4 do
+        game:GetService("ReplicatedStorage").sukuna.remotes.dismantle:FireServer()
+    end
+    task.wait(0.5)
+    rootPart.CFrame = rootPart.CFrame + (lookVector * 25)
+end, 6)
+
+createCooldownTool("this is true kung fu", function()
+    game:GetService("ReplicatedStorage").sukuna.remotes.rush:FireServer()
+    task.wait(0.5)
+    game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+    game:GetService("ReplicatedStorage").sukuna.remotes.dismantle:FireServer()
+end, 12)
+
+createCooldownTool("too easy", function()
+    game:GetService("ReplicatedStorage").Ellen.equipsigma:FireServer()
+    game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent2:FireServer()
+    game:GetService("ReplicatedStorage").Yuji.Remotes.Event2:FireServer()
+    game:GetService("ReplicatedStorage").KJ.Remotes["Collaretal Ruin"]:FireServer()
+    task.wait(3)
+    game:GetService("ReplicatedStorage").Ellen.equipskibidi:FireServer()
+end, 8) -- Print when ultimate is activated
+        task.wait(1) -- Wait 1 second before starting to drain
+        drainBar() -- Start draining the bar
+    else
+        print("Ultimate not ready!") -- Indicate ultimate is on cooldown
+    end
+end) -- Print after 60 seconds
+        isUltimateActive = false
+    end
+end
+
+-- Listen for player death
+player.CharacterAdded:Connect(function(character)
+    local humanoid = character:WaitForChild("Humanoid")
+    humanoid.Died:Connect(function()
+        isUltimateActive = false
+    end)
+end)
+local player = game.Players.LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+local character = player.Character or player.CharacterAdded:Wait()
+
+local function deleteAllTools()
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+
+    for _, tool in ipairs(character:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+end
+
+deleteAllTools()
+
+local function createCooldownTool(name, activateFunction, cooldown)
+    local tool = Instance.new("Tool")
+    tool.Name = name
+    tool.RequiresHandle = false
+    tool.Parent = backpack
+    local isCooldown = false
+    local cooldownValue = Instance.new("NumberValue", tool)
+    cooldownValue.Name = "Cooldown"
+    cooldownValue.Value = 0
+
+    local function startCooldown()
+        isCooldown = true
+        cooldownValue.Value = cooldown
+        tool.Enabled = false -- Disable the tool during cooldown
+        while cooldownValue.Value > 0 do
+            tool.Name = name .. " (" .. string.format("%.1f", cooldownValue.Value) .. "s)"
+            task.wait(0.1)
+            cooldownValue.Value -= 0.1
+        end
+        tool.Name = name
+        tool.Enabled = true -- Re-enable the tool after cooldown
+        isCooldown = false
+    end
+
+    tool.Activated:Connect(function()
+        if isCooldown then return end
+        tool.Enabled = false -- Disable immediately to prevent spamming
+        activateFunction()
+        startCooldown()
+    end)
+end
+
+-- Tool definitions with cooldowns
+createCooldownTool("glimpse of power", function()
+    game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
+    wait(0.5)
+    game:GetService("ReplicatedStorage").Kiryu.Remotes.StylishSweeps:FireServer()
+    wait(0.5)
+    game:GetService("ReplicatedStorage").Ellen.Tail:FireServer()
+end, 3)
+
+createCooldownTool("wolf fang rush", function()
+    game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
+    wait(0.6)
+    game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent4:FireServer()
+    game:GetService("ReplicatedStorage").sukuna.remotes.rush:FireServer()
+    wait(1)
+end, 4)
+
+createCooldownTool("fang dance", function()
+    game:GetService("ReplicatedStorage").Kj.Remotes:FindFirstChild("Sweep Swift"):FireServer()
+    wait(0.5)
+    game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent:FireServer()
+    wait()
+end, 2.5)
+
+createCooldownTool("fang rampage", function()
+    game:GetService("ReplicatedStorage").Yuji.Remotes.Event2:FireServer()
+    wait(0.9)
+    game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent4:FireServer()
+    wait()
+end, 3.5)
+
+-- Create the "Activate Ultimate" tool
+local ultimateReady = true
+
+local function drainBar()
+    for i = 100, 0, -10 do
+        print("Draining bar: " .. i .. "%")
+        task.wait(0.5)
+    end
+    ultimateReady = false -- Mark the ultimate as not ready
+end
+
+local activateUltimateTool = Instance.new("Tool")
+activateUltimateTool.Name = "Activate Ultimate"
+activateUltimateTool.RequiresHandle = false
+activateUltimateTool.Parent = backpack
+
+activateUltimateTool.Activated:Connect(function()
+    if ultimateReady then
+        local player = game.Players.LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+local character = player.Character or player.CharacterAdded:Wait()
+
+local function deleteAllTools()
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+
+    for _, tool in ipairs(character:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+end
+
+deleteAllTools()
+
+local function createCooldownTool(name, activateFunction, cooldown)
+    local tool = Instance.new("Tool")
+    tool.Name = name
+    tool.RequiresHandle = false
+    tool.Parent = backpack
+    local isCooldown = false
+    local cooldownValue = Instance.new("NumberValue", tool)
+    cooldownValue.Name = "Cooldown"
+    cooldownValue.Value = 0
+
+    local function startCooldown()
+        isCooldown = true
+        tool.Enabled = false -- Disable the tool during cooldown
+        cooldownValue.Value = cooldown
+        while cooldownValue.Value > 0 do
+            tool.Name = name .. " (" .. string.format("%.1f", cooldownValue.Value) .. "s)"
+            task.wait(0.1)
+            cooldownValue.Value -= 0.1
+        end
+        tool.Name = name
+        tool.Enabled = true -- Re-enable the tool after cooldown
+        isCooldown = false
+    end
+
+    tool.Activated:Connect(function()
+        if isCooldown then return end -- Prevent activation during cooldown
+        isCooldown = true
+        activateFunction()
+        startCooldown()
+    end)
+end
+
+-- Define tools with cooldowns and activation functions
+createCooldownTool("one inch killer punch", function()
+    for i = 1, 6 do
+        game:GetService("ReplicatedStorage").Ellen.LMBRemotes.RemoteEvent:FireServer()
+        task.wait(0.1)
+        game:GetService("ReplicatedStorage").Ellen.LMBRemotes.RemoteEvent2:FireServer()
+        task.wait(0.1)
+    end
+    game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+end, 9)
+
+createCooldownTool("fang dash", function()
+    local rootPart = character:WaitForChild("HumanoidRootPart")
+    local lookVector = rootPart.CFrame.LookVector
+
+    for i = 1, 4 do
+        game:GetService("ReplicatedStorage").sukuna.remotes.dismantle:FireServer()
+    end
+    task.wait(0.5)
+    rootPart.CFrame = rootPart.CFrame + (lookVector * 25)
+end, 6)
+
+createCooldownTool("this is true kung fu", function()
+    game:GetService("ReplicatedStorage").sukuna.remotes.rush:FireServer()
+    task.wait(0.5)
+    game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+    game:GetService("ReplicatedStorage").sukuna.remotes.dismantle:FireServer()
+end, 12)
+
+createCooldownTool("too easy", function()
+    game:GetService("ReplicatedStorage").Ellen.equipsigma:FireServer()
+    game:GetService("ReplicatedStorage").Ellen.Yuji.RemoteEvent2:FireServer()
+    game:GetService("ReplicatedStorage").Yuji.Remotes.Event2:FireServer()
+    game:GetService("ReplicatedStorage").KJ.Remotes["Collaretal Ruin"]:FireServer()
+    task.wait(3)
+    game:GetService("ReplicatedStorage").Ellen.equipskibidi:FireServer()
+end, 8) 
+local player = game.Players.LocalPlayer
+
+-- Function to reduce health until the player dies
+local function reduceHealthUntilDeath()
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:WaitForChild("Humanoid")
+
+    while humanoid and humanoid.Health > 0 do
+        humanoid.Health = math.max(humanoid.Health - 0, 0) -- Reduce HP by 3, minimum 0
+        task.wait(1) -- Wait for 1 second
+    end
+
+    print("Player has died, stopping health reduction.")
+end
+
+-- Start health reduction when the character spawns
+player.CharacterAdded:Connect(function()
+    task.wait(1) -- Wait for the character to fully load
+    reduceHealthUntilDeath()
+end)
+
+-- If the character is already spawned, start reducing health
+if player.Character then
+    reduceHealthUntilDeath()
+end
+        task.wait(1) -- Wait 1 second before starting to drain
+        drainBar() -- Start draining the bar
+    else
+        print("Ultimate not ready!") -- Indicate ultimate is on cooldown
+    end
+end)
+wait ()
+
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "Jun Moveset"
+tool.RequiresHandle = false
+tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
+
+tool.Activated:Connect(activateScript)
+
