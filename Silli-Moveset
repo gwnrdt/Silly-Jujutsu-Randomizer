@@ -1,0 +1,147 @@
+
+local player = game.Players.LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Function to delete all tools and add Heian era
+local function setupHeianEra()
+    -- Delete all tools
+    for _, tool in ipairs(character:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            tool:Destroy()
+        end
+    end
+
+ -- Add other tools with specific functionality
+        local function addTool(name, activateFunction)
+            local tool = Instance.new("Tool")
+            tool.Name = name
+            tool.RequiresHandle = false
+            tool.Parent = backpack
+            tool.Activated:Connect(activateFunction)
+        end
+
+        addTool("Quick Shot", function()
+            for _ = 1, 20 do
+                game:GetService("ReplicatedStorage").Grace.LMBRemotes.RemoteEvent3:FireServer()
+            end
+        end)
+
+        addTool("Crazy Kick", function()
+        game:GetService("ReplicatedStorage"):WaitForChild("Sukuna"):WaitForChild("Remotes"):WaitForChild("WhirlWind Drop"):FireServer()
+        wait(0.7)
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("footwork"):FireServer()
+        wait(1)
+        game:GetService("ReplicatedStorage"):WaitForChild("Yuji"):WaitForChild("Remotes"):WaitForChild("Event"):FireServer()
+        wait(0.5)
+        game:GetService("ReplicatedStorage"):WaitForChild("sukuna"):WaitForChild("remotes"):WaitForChild("gavel"):FireServer()
+        wait(0.5)
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("cousins"):FireServer()
+        wait(3)
+        game:GetService("ReplicatedStorage").Remotes.BlackFlash:FireServer()
+        game:GetService("ReplicatedStorage"):WaitForChild("KJ"):WaitForChild("Remotes"):WaitForChild("Collaretal Ruin"):FireServer()
+        game:GetService("ReplicatedStorage").sukuna.remotes.suplex:FireServer()
+        --game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("todorise"):FireServer()
+
+        end)
+
+        addTool("Killer Butterfly(15% Special)", function()
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SolemnLament3"):FireServer()
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("vloodarya"):FireServer()
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("widespread"):FireServer()
+
+
+        end)
+
+        addTool("Rush", function()
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("mahichar"):FireServer()
+            wait(0.6)
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("widespread"):FireServer()
+        end)
+
+        addTool("Balant Move", function()
+        for i = 1, 15 do
+            game:GetService("ReplicatedStorage"):WaitForChild("Ellen"):WaitForChild("splode"):WaitForChild("RemoteEvent"):FireServer()
+        end
+        game:GetService("ReplicatedStorage"):WaitForChild("randommoveset"):WaitForChild("remotes"):WaitForChild("bomb"):FireServer()
+
+        end)
+
+        addTool("Balant Move 2", function()
+        for i = 1, 15 do
+            game:GetService("ReplicatedStorage"):WaitForChild("Ellen"):WaitForChild("splode"):WaitForChild("RemoteEvent"):FireServer()
+        end
+        --game:GetService("ReplicatedStorage"):WaitForChild("randommoveset"):WaitForChild("remotes"):WaitForChild("bomb"):FireServer()
+
+        end)
+
+        addTool("Balant Move3(lag)", function()
+        for i = 1, 50 do
+            game:GetService("ReplicatedStorage"):WaitForChild("Ellen"):WaitForChild("splode"):WaitForChild("RemoteEvent"):FireServer()
+        end
+
+        end)
+
+        
+
+        addTool("Crazy Up", function()
+                game:GetService("ReplicatedStorage"):WaitForChild("sukuna"):WaitForChild("remotes"):WaitForChild("gavel"):FireServer()
+                game:GetService("ReplicatedStorage"):WaitForChild("Kiryu"):WaitForChild("Remotes"):WaitForChild("StylishSweeps"):FireServer()
+                game:GetService("ReplicatedStorage"):WaitForChild("sukuna"):WaitForChild("remotes"):WaitForChild("cleave"):FireServer()
+                Wait(0.1)
+                game:GetService("ReplicatedStorage"):WaitForChild("KJ"):WaitForChild("Remotes"):WaitForChild("Collaretal Ruin"):FireServer()
+                --game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("whirl"):FireServer()
+                game:GetService("ReplicatedStorage"):WaitForChild("sukuna"):WaitForChild("remotes"):WaitForChild("dismantle"):FireServer()
+                game:GetService("ReplicatedStorage"):WaitForChild("sukuna"):WaitForChild("remotes"):WaitForChild("sword"):FireServer()
+        end)
+        
+
+
+
+end
+
+
+setupHeianEra()
+
+if _G.ads == nil then
+
+print("Press R for Black Flash")
+
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if gameProcessed then return end
+	
+	if input.KeyCode == Enum.KeyCode.R then
+
+for i = 1, 10 do
+                local args = {
+	game:GetService("Players").LocalPlayer
+}
+game:GetService("ReplicatedStorage"):WaitForChild("DashFolder"):WaitForChild("dashdmg"):FireServer(unpack(args))
+
+end
+
+
+	end
+end)
+
+_G.ads = 1
+
+else
+
+warn("anti loop enabled")
+
+
+
+
+
+end
