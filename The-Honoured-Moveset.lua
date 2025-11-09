@@ -32,7 +32,6 @@ tool.Activated:Connect(activateScript)
 
 local function activateScript()
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("maxred"):FireServer()
-
     wait()
     wait()
 end
