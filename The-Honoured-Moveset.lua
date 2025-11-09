@@ -31,7 +31,8 @@ tool.Parent = game.Players.LocalPlayer:WaitForChild("Backpack")
 tool.Activated:Connect(activateScript)
 
 local function activateScript()
-    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("reversalrecoil"):FireServer()
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("maxred"):FireServer()
+
     wait()
     wait()
 end
